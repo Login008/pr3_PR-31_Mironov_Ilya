@@ -17,7 +17,19 @@ class DoublyLinkedList
 private:
     Node* head = nullptr;
     Node* tail = nullptr;
-    Node* list = nullptr;
+
+    void getTail()
+    {
+        if (head != nullptr)
+        {
+            Node* current = head;
+            while (current->next != nullptr)
+            {
+                current = current->next;
+            }
+            tail = current;
+        }
+    }
 
 public:
     void push_front(int data)
@@ -137,11 +149,13 @@ public:
                         Node* merger = current->next;
                         previous->next = merger;
                         current = merger;
+                        getTail();
+                        delete tail->next;
                         break;
                     }
                     comparer = comparer->next;
                 }
-                if (comparer == current) 
+                if (current == comparer)
                 {
                     previous = current;
                     current = current->next;
@@ -156,7 +170,17 @@ public:
 
 int main()
 {
-        setlocale(LC_ALL, "");
+    int* ptr;
+    int answer;
+    std::cin >> answer;
+    if (answer == 1)
+        ptr = &answer;
+    else if (answer == 0)
+        std::cout << &ptr;
+    std::cout << "\n" << answer;
+
+
+        /*setlocale(LC_ALL, "");
         DoublyLinkedList list;
         while (true)
         {
@@ -229,8 +253,8 @@ int main()
                 else
                 {
                     std::cout << "Вводите только числа от 1 до 8" << std::endl;
-                }
-        }
+                }*/
+        //}
         return 0;
 }
 
